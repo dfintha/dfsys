@@ -1,0 +1,16 @@
+The dfsys bare-bones bootable system
+====================================
+
+This simple system is my first attempt at writing bootable software, maybe even
+an operating system in the future.
+
+It is cross-compiled with i686-elf g++, and most of it is based on the bare
+bones tutorial on the OSDev Wiki.
+
+Right now, all it does is having a multiboot header, booting, and displaying a
+message. The dfsys.h header file contains functions that can be used with this
+system, and it can be extended in C or C++, although the makefile still needs a
+major rework and the files need to be ordered in a better way.
+
+The software is under the MIT License.
+

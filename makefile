@@ -2,22 +2,22 @@ BINARY=bin/dfsys.bin
 OBJECTS=obj/boot.o				\
 		obj/startup.o			\
 		obj/termio.o
-LNKDATA=src/linker.ld
+
+LNKDATA=res/linker.ld
 
 ASM=yasm
 ASMFLAGS=-f elf32
 
+CASM=i686-elf-as
+
 CC=i686-elf-gcc
-CFLAGS=-std=c99 -O2 -nostdlib -I./include			\
-	   -Wall -Wextra -pedantic						\
-	   -ffreestanding
+CFLAGS=-std=c99 -O2 -nostdlib -I./include -I./config \
+	   -Wall -Wextra -pedantic -ffreestanding -S
 
 CXX=i686-elf-g++
-CXXFLAGS=-std=c++14 -O2	-nostdlib -I./include		\
-		 -Wall -Wextra -pedantic					\
-		 -ffreestanding -fno-exceptions -fno-rtti -S
+CXXFLAGS=-std=c++14 -O2	-nostdlib -I./include -I./config \
+		 -Wall -Wextra -pedantic -ffreestanding -fno-exceptions -fno-rtti -S
 
-CLNK=i686-elf-as
 LNK=i686-elf-g++
 LNKFLAGS=-O2 -ffreestanding -nostdlib
 LNKLIBS=-lgcc
@@ -35,13 +35,13 @@ obj/%.o: src/%.c
 	@mkdir -p obj
 	@printf "[C] $<\n"
 	@$(CC) -c $< -o $@s $(CFLAGS)
-	@$(CLNK) $@s -o $@
+	@$(CASM) $@s -o $@
 
 obj/%.o: src/%.cpp
 	@mkdir -p obj
 	@printf "[C] $<\n"
 	@$(CXX) -c $< -o $@s $(CXXFLAGS)
-	@$(CLNK) $@s -o $@
+	@$(CASM) $@s -o $@
 
 $(BINARY): $(OBJECTS) $(LNKDATA)
 	@mkdir -p bin

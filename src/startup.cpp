@@ -17,20 +17,20 @@ namespace terminal {
     uint16_t *buffer;
 }
 
-intrinsic uint8_t imkcolor(vgacolor fg, vgacolor bg) {
+static inline uint8_t imkcolor(vgacolor fg, vgacolor bg) {
     return fg | bg << 4;
 }
 
-intrinsic uint16_t imkentry(unsigned char c, uint8_t colors) {
+static inline uint16_t imkentry(unsigned char c, uint8_t colors) {
     return static_cast<uint16_t>(c) | static_cast<uint16_t>(colors << 8);
 }
 
-intrinsic void iprintc(char c, uint8_t color, size_t x, size_t y) {
+static inline void iprintc(char c, uint8_t color, size_t x, size_t y) {
     const size_t index = y * vga_width + x;
     terminal::buffer[index] = imkentry(c, color);
 }
 
-intrinsic void iterminit() {
+static inline void iterminit() {
     terminal::row = 0;
     terminal::column = 0;
     terminal::color = imkcolor(vga_white, vga_black);

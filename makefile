@@ -1,11 +1,21 @@
 BINARY=bin/dfsys.bin
+OBJECTS=obj/boot.o				\
+		obj/startup.o
+LNKDATA=src/linker.ld
 
-ASM=nasm
-ASMFLAGS=-felf32
+ASM=yasm
+ASMFLAGS=-f elf32
+
+CC=i686-elf-gcc
+CFLAGS=-std=c99 -O2 -nostdlib -I./include			\
+	   -Wall -Wextra -pedantic						\
+	   -ffreestanding -fno-exceptions -fno-rtti
+
 CXX=i686-elf-g++
-CXXFLAGS=-std=c++11 -O2	-nostdlib					\
+CXXFLAGS=-std=c++11 -O2	-nostdlib -I./include		\
 		 -Wall -Wextra -pedantic					\
 		 -ffreestanding -fno-exceptions -fno-rtti
+
 LNK=i686-elf-g++
 LNKFLAGS=-O2 -ffreestanding -nostdlib
 LNKLIBS=-lgcc
@@ -14,21 +24,33 @@ LNKLIBS=-lgcc
 
 all: $(BINARY)
 
-$(BINARY): src/boot.s src/startup.cpp src/linker.ld makefile
-	@mkdir -p bin
-	@printf "[Assembler] boot.s\n"
+obj/%.o: src/%.s
 	@mkdir -p obj
-	@$(ASM) $(ASMFLAGS) src/boot.s -o obj/boot.o
-	@printf "[ Compiler] startup.cpp\n"
-	@$(CXX) -c src/startup.cpp -o obj/startup.o $(CXXFLAGS)
-	@printf "[   Linker] dfsys.bin\n"
-	@$(LNK) -T src/linker.ld -o $(BINARY) $(LNKFLAGS) obj/*.o $(LNKLIBS)
+	@printf "[C] $<\n"
+	@$(ASM) $(ASMFLAGS) $< -o $@
+
+obj/%.o: src/%.c
+	@mkdir -p obj
+	@printf "[C] $<\n"
+	@$(CC) -c $< -o $@ $(CFLAGS)
+
+obj/%.o: src/%.cpp
+	@mkdir -p obj
+	@printf "[C] $<\n"
+	@$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+$(BINARY): $(OBJECTS) $(LNKDATA)
+	@mkdir -p bin
+	@printf "[L] $@\n"
+	@$(LNK) -T $(LNKDATA) -o $(BINARY) $(LNKFLAGS) $(OBJECTS) $(LNKLIBS)
 
 run: $(BINARY)
-	@printf "[ Emulator] dfsys\n"
+	@printf "[E] $(BINARY)\n"
 	@qemu-system-x86_64 -kernel $(BINARY)
 
 clean:
-	@printf "[    Clean] obj, bin\n"
-	@rm -rf obj bin
+	@printf "[R] bin\n"
+	@rm -rf bin
+	@printf "[R] obj\n"
+	@rm -rf obj
 

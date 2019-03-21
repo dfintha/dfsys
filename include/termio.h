@@ -1,14 +1,5 @@
-#if !defined(DFSYS_HEADER)
-#define DFSYS_HEADER
-
-#include <stddef.h>
-#include <stdint.h>
-
-#define intrinsic static inline
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
+#if !defined(DFSYS_TERMIO)
+#define DFSYS_TERMIO
 
 typedef enum __vgacolor {
     vga_black        = 0,
@@ -28,6 +19,10 @@ typedef enum __vgacolor {
     vga_lightbrown   = 14,
     vga_white        = 15
 } vgacolor;
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 void ksetcolor(vgacolor fg, vgacolor bg);
 void kprintc(char c);

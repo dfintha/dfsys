@@ -27,10 +27,10 @@ extern "C" {
 #endif
 
 void kterminit();
-void ksetcolor(vgacolor fg, vgacolor bg);
-void ktermpos(size_t x, size_t y); 
-void kprintc(char c);
-void kprints(const char *s);
+void ktermsetcol(vgacolor fg, vgacolor bg);
+void ktermsetpos(size_t x, size_t y); 
+void ktermprintc(char c);
+void ktermprints(const char *s);
 
 #if defined(__cplusplus)
 }

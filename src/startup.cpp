@@ -2,13 +2,13 @@
 
 extern "C" void kmain() {
     kterminit();
-    kprints("welcome to dfsys - research version\n");
-    kprints("copyright 2019 dfintha\n");
+    ktermprints("welcome to dfsys - research version\n");
+    ktermprints("copyright 2019 dfintha\n");
     for (int i = 0; i < 16; ++i) {
-        ksetcolor(vga_black, vgacolor(i));
-        kprintc(' ');
+        ktermsetcol(vga_black, vgacolor(i));
+        ktermprintc(' ');
     }
-    ksetcolor(vga_white, vga_black);
-    kprintc('\n');
+    ktermsetcol(vga_white, vga_black);
+    ktermprintc('\n');
 }
 

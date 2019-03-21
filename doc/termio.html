@@ -12,10 +12,10 @@
         <ul class="toclist">
             <li><a href="#vgacolor">vgacolor</a> enumeration</li>
             <li><a href="#kterminit">kterminit</a> function</li>
-            <li><a href="#ksetcolor">ksetcolor</a> function</li>
-            <li><a href="#ktermpos">ktermpos</a> function</li>
-            <li><a href="#kprintc">kprintc</a> function</li>
-            <li><a href="#kprints">kprints</a> function</li>
+            <li><a href="#ktermsetcol">ktermsetcol</a> function</li>
+            <li><a href="#ktermsetpos">ktermsetpos</a> function</li>
+            <li><a href="#ktermprintc">ktermprintc</a> function</li>
+            <li><a href="#ktermprints">ktermprints</a> function</li>
         </ul>
 
         <hr />
@@ -25,7 +25,7 @@
         <code>typedef enum __vgacolor { ... } vgacolor;</code><br />
         <p>
             This enumeration contains the 16 basic VGA colors, which can be
-            used in the <a href="#ksetcolor"><code>ksetcolor</code></a>
+            used in the <a href="#ktermsetcol"><code>ktermsetcol</code></a>
             function.
         </p>
 
@@ -42,33 +42,33 @@
             least once before using any other terminal functions.
         </p>
 
-        <a name="ksetcolor"></a>
-        <h2>ksetcolor function</h2>
-        <code>void ksetcolor(vgacolor fg, vgacolor bg);</code><br />
+        <a name="ktermsetcol"></a>
+        <h2>ktermsetcol function</h2>
+        <code>void ktermsetcol(vgacolor fg, vgacolor bg);</code><br />
         <p>
             Sets the current output color to described by the arguments. The
             foreground color is set to <b>fg</b> and the background color is set
             to <b>bg</b>. This only affects output after the function was used.
         </p>
 
-        <a name="ktermpos"></a>
-        <h2>ktermpos function</h2>
-        <code>void ktermpos(size_t x, size_t y);</code><br />
+        <a name="ktermsetpos"></a>
+        <h2>ktermsetpos function</h2>
+        <code>void ktermsetpos(size_t x, size_t y);</code><br />
         <p>
             Moves the cursor to the given <b>(x, y)</b> coordinate in the
             terminal, and continues output there.
         </p>
 
-        <a name="kprintc"></a>
-        <h2>kprintc function</h2>
-        <code>void kprintc(char c);</code><br />
+        <a name="ktermprintc"></a>
+        <h2>ktermprintc function</h2>
+        <code>void ktermprintc(char c);</code><br />
         <p>
             Outputs the given single character to the terminal.
         </p>
 
-        <a name="kprints"></a>
-        <h2>kprints function</h2>
-        <code>void kprints(const char *s);</code><br />
+        <a name="ktermprints"></a>
+        <h2>ktermprints function</h2>
+        <code>void ktermprints(const char *s);</code><br />
         <p>
             Outputs the given zero-terminated string to the terminal.
         </p>

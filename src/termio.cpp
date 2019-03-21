@@ -37,7 +37,7 @@ extern "C" void kterminit() {
     }
 }
 
-extern "C" void kprintc(char c) {
+extern "C" void ktermprintc(char c) {
     if (c != '\n')
         iprintc(c, terminal::color, terminal::column, terminal::row);
 
@@ -49,16 +49,16 @@ extern "C" void kprintc(char c) {
     }
 }
 
-extern "C" void kprints(const char *s) {
+extern "C" void ktermprints(const char *s) {
     while (*s != '\0')
-        kprintc(*s++);
+        ktermprintc(*s++);
 }
 
-extern "C" void ksetcolor(vgacolor fg, vgacolor bg) {
+extern "C" void ktermsetcol(vgacolor fg, vgacolor bg) {
     terminal::color = imkcolor(fg, bg);
 }
 
-extern "C" void ktermpos(size_t x, size_t y) {
+extern "C" void ktermsetpos(size_t x, size_t y) {
     terminal::column = x;
     terminal::row = y;
 }

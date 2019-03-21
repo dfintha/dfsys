@@ -1,6 +1,8 @@
 #if !defined(DFSYS_TERMIO)
 #define DFSYS_TERMIO
 
+#include "definitions.h"
+
 typedef enum __vgacolor {
     vga_black        = 0,
     vga_blue         = 1,
@@ -24,7 +26,9 @@ typedef enum __vgacolor {
 extern "C" {
 #endif
 
+void kterminit();
 void ksetcolor(vgacolor fg, vgacolor bg);
+void ktermpos(size_t x, size_t y); 
 void kprintc(char c);
 void kprints(const char *s);
 

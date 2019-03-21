@@ -1,6 +1,7 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/boot.o				\
-		obj/startup.o
+		obj/startup.o			\
+		obj/termio.o
 LNKDATA=src/linker.ld
 
 ASM=yasm

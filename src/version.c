@@ -1,6 +1,6 @@
 #include "version.h"
 
-const versioninfo version = {
+const versioninfo kversion = {
     #include "version.inc"
 };
 

@@ -10,7 +10,7 @@ typedef struct __versioninfo {
     char special;
 } versioninfo;
 
-extern const versioninfo version; 
+extern const versioninfo kversion; 
 
 #endif
 

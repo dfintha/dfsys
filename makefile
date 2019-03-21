@@ -1,6 +1,7 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/boot.o              \
         obj/startup.o           \
+        obj/strings.o           \
         obj/termio.o            \
         obj/version.o
 

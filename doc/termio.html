@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>dfsys</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <h1>Terminal Input/Output <code>&lt;termio.h&gt;</code></h1>
+
+        <h2>Table of Contents</h2>
+        <ul class="toclist">
+            <li><a href="#vgacolor">vgacolor</a> enumeration</li>
+            <li><a href="#kterminit">kterminit</a> function</li>
+            <li><a href="#ksetcolor">ksetcolor</a> function</li>
+            <li><a href="#ktermpos">ktermpos</a> function</li>
+            <li><a href="#kprintc">kprintc</a> function</li>
+            <li><a href="#kprints">kprints</a> function</li>
+        </ul>
+
+        <hr />
+
+        <a name="vgacolor"></a>
+        <h2>vgacolor enumeration</h2>
+        <code>typedef enum __vgacolor { ... } vgacolor;</code><br />
+        <p>
+            This enumeration contains the 16 basic VGA colors, which can be
+            used in the <a href="#ksetcolor"><code>ksetcolor</code></a>
+            function.
+        </p>
+
+        <a name="kterminit"></a>
+        <h2>kterminit function</h2>
+        <code>void kterminit();</code><br />
+        <p>
+            This function initializes the terminal, as such, fills the terminal
+            buffer with empty content, sets the initial position to (0, 0), and
+            sets the terminal buffer pointer.
+        </p>
+        <p>
+            This function can be called multiple times, but must be called at
+            least once before using any other terminal functions.
+        </p>
+
+        <a name="ksetcolor"></a>
+        <h2>ksetcolor function</h2>
+        <code>void ksetcolor(vgacolor fg, vgacolor bg);</code><br />
+        <p>
+            Sets the current output color to described by the arguments. The
+            foreground color is set to <b>fg</b> and the background color is set
+            to <b>bg</b>. This only affects output after the function was used.
+        </p>
+
+        <a name="ktermpos"></a>
+        <h2>ktermpos function</h2>
+        <code>void ktermpos(size_t x, size_t y);</code><br />
+        <p>
+            Moves the cursor to the given <b>(x, y)</b> coordinate in the
+            terminal, and continues output there.
+        </p>
+
+        <a name="kprintc"></a>
+        <h2>kprintc function</h2>
+        <code>void kprintc(char c);</code><br />
+        <p>
+            Outputs the given single character to the terminal.
+        </p>
+
+        <a name="kprints"></a>
+        <h2>kprints function</h2>
+        <code>void kprints(const char *s);</code><br />
+        <p>
+            Outputs the given zero-terminated string to the terminal.
+        </p>
+
+        <hr />
+
+        <p>
+            Created by Dénes Fintha<br />
+            Last modified on 2019-03-21.
+        </p>
+    </body>
+</html>
+

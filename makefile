@@ -28,6 +28,10 @@ LNKLIBS=-lgcc
 
 all: $(BINARY)
 
+loc:
+	@printf "[L] "
+	@cat include/* src/* res/* | wc -l
+
 obj/%.o: src/%.s
 	@mkdir -p obj
 	@printf "[C] $<\n"

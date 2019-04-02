@@ -1,7 +1,7 @@
 #if !defined(DFSYS_VERSION)
 #define DFSYS_VERSION
 
-#include "definitions.h"
+#include <stdint.h>
 
 typedef struct __versioninfo {
     uint8_t major;

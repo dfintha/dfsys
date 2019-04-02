@@ -1,4 +1,4 @@
-#include "termio.h"
+#include "terminal.h"
 
 constexpr const size_t vga_width = 80;
 constexpr const size_t vga_height = 25;

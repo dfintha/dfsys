@@ -1,8 +1,7 @@
 BINARY=bin/dfsys.bin
-OBJECTS=obj/boot.o              \
-        obj/startup.o           \
-        obj/strings.o           \
-        obj/termio.o            \
+OBJECTS=obj/bootstrap.o         \
+        obj/kernel.o            \
+        obj/terminal.o          \
         obj/version.o
 
 LNKDATA=res/linker.ld
@@ -13,12 +12,14 @@ ASMFLAGS=-f elf32
 CASM=i686-elf-as
 
 CC=i686-elf-gcc
-CFLAGS=-std=c99 -O2 -nostdlib -I./include -I./res \
-       -Wall -Wextra -pedantic -ffreestanding -S
+CFLAGS=-std=c99 -O2 -nostdlib -I./include -I./res                              \
+       -Wall -Wextra -pedantic -ffreestanding                                  \
+	   -fstack-protector -S
 
 CXX=i686-elf-g++
-CXXFLAGS=-std=c++14 -O2	-nostdlib -I./include -I./res \
-         -Wall -Wextra -pedantic -ffreestanding -fno-exceptions -fno-rtti -S
+CXXFLAGS=-std=c++14 -O2	-nostdlib -I./include -I./res                          \
+         -Wall -Wextra -pedantic -ffreestanding -fno-exceptions -fno-rtti      \
+		 -fstack-protector -S
 
 LNK=i686-elf-g++
 LNKFLAGS=-O2 -ffreestanding -nostdlib

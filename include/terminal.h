@@ -1,7 +1,8 @@
 #if !defined(DFSYS_TERMIO)
 #define DFSYS_TERMIO
 
-#include "definitions.h"
+#include <stddef.h>
+#include <stdint.h>
 
 typedef enum __vgacolor {
     vga_black        = 0,

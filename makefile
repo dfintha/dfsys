@@ -1,7 +1,5 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/bootstrap.o         \
-        obj/crti.o              \
-        obj/crtn.o              \
         obj/kernel.o            \
         obj/terminal.o          \
         obj/version.o
@@ -35,7 +33,6 @@ CRTN=obj/crtn.o
 .PHONY: all, clean
 
 all: $(BINARY)
-	@echo $(CRTI) $(CRTB) $(CRTE) $(CRTN)
 
 loc:
 	@printf "[L] "
@@ -58,10 +55,11 @@ obj/%.o: src/%.cpp
 	@$(CXX) -c $< -o $@s $(CXXFLAGS)
 	@$(CASM) $@s -o $@
 
-$(BINARY): $(OBJECTS) $(LNKDATA)
+$(BINARY): $(CRTI) $(CRTN) $(OBJECTS) $(LNKDATA)
 	@mkdir -p bin
 	@printf "[L] $@\n"
-	@$(LNK) -T $(LNKDATA) -o $(BINARY) $(LNKFLAGS) $(OBJECTS) $(LNKLIBS)
+	@$(LNK) -T $(LNKDATA) -o $(BINARY) $(LNKFLAGS) \
+		$(CRTI) $(CRTB) $(OBJECTS) $(CRTE) $(CRTN) $(LNKLIBS)
 
 run: $(BINARY)
 	@printf "[E] $(BINARY)\n"

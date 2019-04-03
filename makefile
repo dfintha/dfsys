@@ -1,5 +1,7 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/bootstrap.o         \
+        obj/crti.o              \
+        obj/crtn.o              \
         obj/kernel.o            \
         obj/terminal.o          \
         obj/version.o
@@ -25,9 +27,15 @@ LNK=i686-elf-g++
 LNKFLAGS=-O2 -ffreestanding -nostdlib
 LNKLIBS=-lgcc
 
+CRTI=obj/crti.o
+CRTB=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
+CRTE=$(shell $(CC) $(CFLAGS) -print-file-name=crtend.o)
+CRTN=obj/crtn.o
+
 .PHONY: all, clean
 
 all: $(BINARY)
+	@echo $(CRTI) $(CRTB) $(CRTE) $(CRTN)
 
 loc:
 	@printf "[L] "

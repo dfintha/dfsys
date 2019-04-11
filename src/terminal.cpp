@@ -18,9 +18,21 @@ static inline uint16_t imkentry(unsigned char c, uint8_t colors) {
     return static_cast<uint16_t>(c) | static_cast<uint16_t>(colors << 8);
 }
 
-static inline void iprintc(char c, uint8_t color, size_t x, size_t y) {
+static inline void iputc(char c, uint8_t color, size_t x, size_t y) {
     const size_t index = y * vga_width + x;
     terminal::buffer[index] = imkentry(c, color);
+}
+
+static inline void iscroll() {
+    const size_t total = vga_width * vga_height;
+    for (size_t i = vga_width; i < total; ++i) {
+        terminal::buffer[i - vga_width] = terminal::buffer[i];
+    }
+    const size_t laststart = (vga_width * vga_height) - vga_width;
+    for (size_t i = laststart; i < total; ++i) {
+        terminal::buffer[i] = imkentry(' ', terminal::color);
+    }
+    ktermsetpos(0, vga_height - 1);
 }
 
 extern "C" void kterminit() {
@@ -39,12 +51,13 @@ extern "C" void kterminit() {
 
 extern "C" void ktermprintc(char c) {
     if (c != '\n')
-        iprintc(c, terminal::color, terminal::column, terminal::row);
+        iputc(c, terminal::color, terminal::column, terminal::row);
 
     if (++terminal::column == vga_width || c == '\n') {
         terminal::column = 0;
         if (++terminal::row == vga_height) {
-            terminal::row = 0;
+            --terminal::row;
+            iscroll();
         }
     }
 }

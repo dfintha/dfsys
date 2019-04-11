@@ -14,12 +14,9 @@ void __stack_chk_fail() {
 
 extern "C" void kmain() {
     kterminit();
+    ktermsetcol(vga_white, vga_blue);
     ktermprints("welcome to dfsys - research version\n");
-    ktermprints("copyright 2019 dfintha\n");
-    for (int i = 0; i < 16; ++i) {
-        ktermsetcol(vga_black, vgacolor(i));
-        ktermprintc(' ');
-    }
+    ktermprints("copyright 2019 dfintha\n\n");
     ktermsetcol(vga_white, vga_black);
     ktermprintc('\n');
 }

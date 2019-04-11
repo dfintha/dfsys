@@ -50,11 +50,19 @@ extern "C" void kterminit() {
 }
 
 extern "C" void ktermprintc(char c) {
-    if (c != '\n')
+    if (c != '\n') {
         iputc(c, terminal::color, terminal::column, terminal::row);
+    }
 
     if (++terminal::column == vga_width || c == '\n') {
+        const size_t diff = vga_width - terminal::column;
+        for (size_t i = 0; i < diff; ++i) {
+            const size_t column = terminal::column + i - 1;
+            iputc(' ', terminal::color, column, terminal::row);
+        }
+
         terminal::column = 0;
+
         if (++terminal::row == vga_height) {
             --terminal::row;
             iscroll();

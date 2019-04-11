@@ -1,5 +1,5 @@
-#if !defined(DFSYS_TERMIO)
-#define DFSYS_TERMIO
+#if !defined(DFSYS_TERMINAL)
+#define DFSYS_TERMINAL
 
 #include <stddef.h>
 #include <stdint.h>

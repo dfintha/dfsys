@@ -55,7 +55,7 @@ extern "C" void ktermprintc(char c) {
     }
 
     if (++terminal::column == vga_width || c == '\n') {
-        const size_t diff = vga_width - terminal::column;
+        const size_t diff = vga_width - terminal::column + 1;
         for (size_t i = 0; i < diff; ++i) {
             const size_t column = terminal::column + i - 1;
             iputc(' ', terminal::color, column, terminal::row);

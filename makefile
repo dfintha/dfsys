@@ -1,6 +1,7 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/bootstrap.o         \
         obj/kernel.o            \
+        obj/memory.o            \
         obj/terminal.o          \
         obj/version.o
 

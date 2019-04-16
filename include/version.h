@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+/* structure containing version info for the kernel */
 typedef struct __versioninfo {
     uint8_t major;
     uint8_t minor;
@@ -10,6 +11,7 @@ typedef struct __versioninfo {
     char special;
 } versioninfo;
 
+/* global version information */
 extern const versioninfo kversion; 
 
 #endif

@@ -7,6 +7,7 @@
 #include "strings.h"
 #include "terminal.h"
 #include "version.h"
+#include "x86.h"
 
 #endif
 

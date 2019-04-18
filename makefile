@@ -4,7 +4,8 @@ OBJECTS=obj/bootstrap.o         \
         obj/memory.o            \
         obj/strings.o           \
         obj/terminal.o          \
-        obj/version.o
+        obj/version.o           \
+        obj/x86.o
 
 LNKDATA=res/linker.ld
 

@@ -1,4 +1,6 @@
+#include "strings.h"
 #include "terminal.h"
+#include <stdarg.h>
 
 constexpr const size_t vga_width = 80;
 constexpr const size_t vga_height = 25;
@@ -84,3 +86,11 @@ external void ktermsetpos(size_t x, size_t y) {
     terminal::row = y;
 }
 
+external void ktermprintf(const char *format, ...) {
+    char buffer[2048];
+    va_list args;
+    va_start(args, format);
+    kstrformatv(buffer, format, args);
+    va_end(args);
+    ktermprints(buffer);
+}

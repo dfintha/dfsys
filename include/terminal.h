@@ -40,5 +40,8 @@ external void ktermprintc(char c);
 /* print the string _s_ to the terminal */
 external void ktermprints(const char *s);
 
+/* print the formatted string of _format_ to the terminal */
+external void ktermprintf(const char *format, ...);
+
 #endif
 

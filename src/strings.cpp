@@ -1,6 +1,5 @@
 #include "strings.h"
 
-
 external void kstritoa(char *destination, unsigned long number, int radix) {
     size_t i = 0;
     do {
@@ -68,7 +67,7 @@ external int kstrncmp(const char *first, const char *second, size_t bytes) {
     return 0;
 }
 
-external char * kstrcpy(char *destination, const char *source) {
+external char * kstrcopy(char *destination, const char *source) {
     for (size_t i = 0; source[i] != '\0'; ++i)
         destination[i] = source[i];
     return destination;
@@ -81,7 +80,77 @@ external char * kstrncpy(char *destination, const char *source, size_t bytes) {
 }
 
 external char * kstrcat(char *destination, const char *source) {
-    kstrcpy(destination + kstrlen(destination), source);
+    kstrcopy(destination + kstrlen(destination), source);
     return destination;
 }
 
+external void kstrformat(char *destination, const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    kstrformatv(destination, format, args);
+    va_end(args);
+}
+
+external void kstrformatv(char *destination, const char *format, va_list args) {
+    bool formatted = false;
+    *destination = '\0';
+
+    while (*format != '\0') {
+        const char current = *format;
+        if (current == '%') {
+            if (formatted) kstrappend(destination, current);
+            formatted = !formatted;
+            ++format;
+            continue;
+        }
+
+        if (!formatted) {
+            kstrappend(destination, current);
+            ++format;
+            continue;
+        }
+
+        switch (current) {
+            case 'd': { // int
+                const int value = va_arg(args, int);
+                char buffer[64];
+                kstritoa(buffer, (value < 0) ? (-value) : (value), 10);
+                if (value < 0) kstrappend(destination, '-');
+                kstrcat(destination, buffer);
+                break;
+            }
+
+            case 'u': { // unsigned
+                const unsigned value = va_arg(args, unsigned);
+                char buffer[64];
+                kstritoa(buffer, value, 10);
+                kstrcat(destination, buffer);
+                break;
+            }
+
+            case 'c': { // char
+                const char value = va_arg(args, int);
+                kstrappend(destination, value);
+                break;
+            }
+
+            case 's': { // const char *
+                const char *value = va_arg(args, const char *);
+                kstrcat(destination, value);
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        formatted = false;
+        ++format;
+    }
+}
+
+external void kstrappend(char *destination, char c) {
+    const size_t length = kstrlen(destination);
+    destination[length] = c;
+    destination[length + 1] = '\0';
+}

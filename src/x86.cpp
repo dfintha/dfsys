@@ -6,14 +6,7 @@ gdtdesc kgdt[GDT_SIZE];
 idtreg kidtr;
 idtdesc kidt[IDT_SIZE];
 
-extern void _asm_interrupt_0();
-extern void _asm_interrupt_1();
-extern void _asm_syscalls();
-extern void _asm_exception_gp();
-extern void _asm_exception_pf();
-extern void _asm_schedule();
-
-extern "C" gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8_t flags) {
+external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8_t flags) {
     gdtdesc result;
     result.limit_0to15 = (lim & 0xFFFF);
     result.base_0to15 = (base & 0xFFFF);
@@ -25,7 +18,7 @@ extern "C" gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8
     return result;
 }
 
-extern "C" void kgdtinit(void) {
+external void kgdtinit(void) {
     kgdt[0] = kgdtmkdesc(0x00, 0x000000, 0x00, 0x00);
     kgdt[1] = kgdtmkdesc(0x00, 0x0FFFFF, 0x9B, 0x0D);
     kgdt[2] = kgdtmkdesc(0x00, 0x0FFFFF, 0x93, 0x0D);
@@ -51,7 +44,7 @@ extern "C" void kgdtinit(void) {
                   next:             \n");
 }
 
-extern "C" idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type) {
+external idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type) {
     idtdesc result;
     result.offset_0to15 = (offset & 0xFFFF);
     result.select = select;
@@ -60,7 +53,7 @@ extern "C" idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type) {
     return result;
 }
 
-extern "C" void kidtinit(void) {
+external void kidtinit(void) {
     // TODO
 }
 

@@ -1,6 +1,7 @@
 #if !defined(DFSYS_X86)
 #define DFSYS_X86
 
+#include "extensions.h"
 #include <stdint.h>
 
 /* x86 gdt register */
@@ -46,25 +47,18 @@ extern gdtdesc kgdt[GDT_SIZE];
 extern idtreg kidtr;
 extern idtdesc kidt[IDT_SIZE];
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
 /* returns a gdt descriptor based on the given arguments */
-gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8_t flags);
+external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim,
+                            uint8_t access, uint8_t flags);
 
 /* initializes gdt */
-void kgdtinit(void);
+external void kgdtinit(void);
 
 /* returns an idt descriptor based on the given arguments */
-idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type);
+external idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type);
 
 /* initializes idt */
-void kidtinit(void);
-
-#if defined(__cplusplus)
-}
-#endif
+external void kidtinit(void);
 
 #endif
 

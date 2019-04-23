@@ -10,20 +10,20 @@ namespace terminal {
     uint16_t *buffer;
 }
 
-static inline uint8_t imkcolor(vgacolor fg, vgacolor bg) {
+internal uint8_t imkcolor(vgacolor fg, vgacolor bg) {
     return fg | bg << 4;
 }
 
-static inline uint16_t imkentry(unsigned char c, uint8_t colors) {
+internal uint16_t imkentry(unsigned char c, uint8_t colors) {
     return static_cast<uint16_t>(c) | static_cast<uint16_t>(colors << 8);
 }
 
-static inline void iputc(char c, uint8_t color, size_t x, size_t y) {
+internal void iputc(char c, uint8_t color, size_t x, size_t y) {
     const size_t index = y * vga_width + x;
     terminal::buffer[index] = imkentry(c, color);
 }
 
-static inline void iscroll() {
+internal void iscroll() {
     const size_t total = vga_width * vga_height;
     for (size_t i = vga_width; i < total; ++i) {
         terminal::buffer[i - vga_width] = terminal::buffer[i];
@@ -35,7 +35,7 @@ static inline void iscroll() {
     ktermsetpos(0, vga_height - 1);
 }
 
-extern "C" void kterminit() {
+external void kterminit() {
     terminal::row = 0;
     terminal::column = 0;
     terminal::color = imkcolor(vga_white, vga_black);
@@ -49,7 +49,7 @@ extern "C" void kterminit() {
     }
 }
 
-extern "C" void ktermprintc(char c) {
+external void ktermprintc(char c) {
     if (c != '\n') {
         iputc(c, terminal::color, terminal::column, terminal::row);
     }
@@ -70,16 +70,16 @@ extern "C" void ktermprintc(char c) {
     }
 }
 
-extern "C" void ktermprints(const char *s) {
+external void ktermprints(const char *s) {
     while (*s != '\0')
         ktermprintc(*s++);
 }
 
-extern "C" void ktermsetcol(vgacolor fg, vgacolor bg) {
+external void ktermsetcol(vgacolor fg, vgacolor bg) {
     terminal::color = imkcolor(fg, bg);
 }
 
-extern "C" void ktermsetpos(size_t x, size_t y) {
+external void ktermsetpos(size_t x, size_t y) {
     terminal::column = x;
     terminal::row = y;
 }

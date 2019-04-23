@@ -1,6 +1,7 @@
 #if !defined(DFSYS_TERMINAL)
 #define DFSYS_TERMINAL
 
+#include "extensions.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -24,27 +25,20 @@ typedef enum __vgacolor {
     vga_white        = 15
 } vgacolor;
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
 /* initialize and reset terminal, must be called before other terminal calls */
-void kterminit();
+external void kterminit();
 
 /* set the current color of the terminal to _fg_ on _bg_ background */
-void ktermsetcol(vgacolor fg, vgacolor bg);
+external void ktermsetcol(vgacolor fg, vgacolor bg);
 
 /* jump to the position (_x_, _y_) in the terminal buffer */
-void ktermsetpos(size_t x, size_t y);
+external void ktermsetpos(size_t x, size_t y);
 
 /* print the single character _c_ to the terminal */
-void ktermprintc(char c);
+external void ktermprintc(char c);
 
 /* print the string _s_ to the terminal */
-void ktermprints(const char *s);
+external void ktermprints(const char *s);
 
-#if defined(__cplusplus)
-}
-#endif
 #endif
 

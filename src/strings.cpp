@@ -1,7 +1,7 @@
 #include "strings.h"
 
 
-extern "C" void kstritoa(char *destination, unsigned long number, int radix) {
+external void kstritoa(char *destination, unsigned long number, int radix) {
     size_t i = 0;
     do {
         unsigned long temp = number % radix;
@@ -16,7 +16,7 @@ extern "C" void kstritoa(char *destination, unsigned long number, int radix) {
     }
 }
 
-extern "C" size_t kstrlen(const char *string) {
+external size_t kstrlen(const char *string) {
     if (string == nullptr)
         return 0;
 
@@ -25,7 +25,7 @@ extern "C" size_t kstrlen(const char *string) {
     return counter;
 }
 
-extern "C" int kstrcmp(const char *first, const char *second) {
+external int kstrcmp(const char *first, const char *second) {
     const size_t firstlen = kstrlen(first);
     const size_t secondlen = kstrlen(second);
 
@@ -45,7 +45,7 @@ extern "C" int kstrcmp(const char *first, const char *second) {
     return 0;
 }
 
-extern "C" int kstrncmp(const char *first, const char *second, size_t bytes) {
+external int kstrncmp(const char *first, const char *second, size_t bytes) {
     const size_t firstlen = kstrlen(first);
     const size_t secondlen = kstrlen(second);
 
@@ -68,19 +68,19 @@ extern "C" int kstrncmp(const char *first, const char *second, size_t bytes) {
     return 0;
 }
 
-extern "C" char * kstrcpy(char *destination, const char *source) {
+external char * kstrcpy(char *destination, const char *source) {
     for (size_t i = 0; source[i] != '\0'; ++i)
         destination[i] = source[i];
     return destination;
 }
 
-extern "C" char * kstrncpy(char *destination, const char *source, size_t bytes) {
+external char * kstrncpy(char *destination, const char *source, size_t bytes) {
     for (size_t i = 0; i < bytes; ++i)
         destination[i] = source[i];
     return destination;
 }
 
-extern "C" char * kstrcat(char *destination, const char *source) {
+external char * kstrcat(char *destination, const char *source) {
     kstrcpy(destination + kstrlen(destination), source);
     return destination;
 }

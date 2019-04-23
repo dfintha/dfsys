@@ -6,13 +6,12 @@ uintptr_t __stack_chk_guard = 0xE2DEE396;
 uintptr_t __stack_chk_guard = 0x595E9FBD94FDA766;
 #endif
 
-__attribute__((noreturn))
-void __stack_chk_fail() {
+external __attribute__((noreturn)) void __stack_chk_fail() {
     ktermprints("stack smashing detected\n");
     while (true) asm volatile ("hlt");
 }
 
-extern "C" void kmain() {
+external void kmain() {
     kterminit();
     ktermsetcol(vga_white, vga_blue);
     ktermprints("welcome to dfsys - research version\n");

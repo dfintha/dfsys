@@ -3,6 +3,7 @@
 
 /* this header file acts as a composite of kernel headers */
 
+#include "cpuinfo.h"
 #include "extensions.h"
 #include "memory.h"
 #include "strings.h"

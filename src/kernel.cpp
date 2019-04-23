@@ -13,10 +13,15 @@ external __attribute__((noreturn)) void __stack_chk_fail() {
 
 external void kmain() {
     kterminit();
+
     ktermsetcol(vga_white, vga_blue);
     ktermprints("welcome to dfsys - research version\n");
     ktermprints("copyright 2019 dfintha\n\n");
     ktermsetcol(vga_white, vga_black);
+
+    cpuinfo info = kcpuinfo();
+    ktermprints("processor manufacturer: ");
+    ktermprints(info.manufacturer);
     ktermprintc('\n');
 }
 

@@ -23,11 +23,11 @@ external void kmain() {
 
     ktermsetcol(vga_black, vga_green);
     const cpuinfo info = kcpuinfo();
-    ktermprintf(" cpu information\n"
+    ktermprintf("\n cpu information\n"
     			"   manufacturer: %s\n"
     			"   family:       %u\n"
     			"   model:        %u\n"
-    			"   stepping:     %u\n",
+    			"   stepping:     %u\n\n",
     			info.manufacturer, info.family, info.model, info.stepping);
     
     ktermsetcol(vga_white, vga_red);

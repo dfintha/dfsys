@@ -3,6 +3,7 @@ OBJECTS=obj/bootstrap.o         \
         obj/cpuinfo.o           \
         obj/kernel.o            \
         obj/memory.o            \
+        obj/stackcheck.o        \
         obj/strings.o           \
         obj/terminal.o          \
         obj/version.o           \
@@ -16,7 +17,7 @@ ASMFLAGS=-f elf32
 CASM=i686-elf-as
 
 CC=i686-elf-gcc
-CFLAGS=-std=c99 -O2 -nostdlib -I./include -I./res                              \
+CFLAGS=-std=gnu99 -O2 -nostdlib -I./include -I./res                            \
        -Wall -Wextra -pedantic -ffreestanding                                  \
 	   -fstack-protector -S
 

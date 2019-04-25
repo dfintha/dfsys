@@ -38,8 +38,8 @@ external void kgdtinit(void) {
              reinterpret_cast<char *>(kgdt),
              kgdtr.limit);
 
-    asm volatile("lgdtl (kgdtr)");
-    asm volatile("movw $0x10, %ax   \n\
+    asm volatile("lgdtl (kgdtr)     \n\
+                  movw $0x10, %ax   \n\
                   movw %ax, %ds     \n\
                   movw %ax, %es     \n\
                   movw %ax, %fs     \n\

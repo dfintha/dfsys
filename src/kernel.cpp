@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include "x86.h"
 
 external void kmain() {
     kterminit();
@@ -18,6 +19,11 @@ external void kmain() {
     ktermprintf("   family:       %u\n", info.family);
     ktermprintf("   model:        %u\n", info.model);
     ktermprintf("   stepping:     %u\n\n", info.stepping);
+
+    ktermsetcol(vga_white, vga_magenta);
+    ktermprints("\n initializing gdt... ");
+    kgdtinit();
+    ktermprints("ok\n\n");
 
     ktermsetcol(vga_white, vga_red);
     ktermprints("\n you can turn off your computer now :D\n\n");

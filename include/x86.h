@@ -138,8 +138,7 @@ extern idtdesc kidt[IDT_SIZE];
 extern tss default_tss;
 
 /* returns a gdt descriptor based on the given arguments */
-external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim,
-                            uint8_t access, uint8_t flags);
+external gdtdesc kgdtmkdesc(uint32_t base, uint32_t limit, uint8_t type);
 
 /* initializes gdt */
 external void kgdtinit(void);

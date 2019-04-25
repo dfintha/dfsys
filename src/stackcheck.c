@@ -1,9 +1,9 @@
 #include "terminal.h"
 #include <stdint.h>
 
-#if (UINT32_MAX == UINTPTR_MAX)
+#if defined(ARCH_X86)
 uintptr_t __stack_chk_guard = 0xE2DEE396;
-#else
+#elif defined(ARCH_X64)
 uintptr_t __stack_chk_guard = 0x595E9FBD94FDA766;
 #endif
 

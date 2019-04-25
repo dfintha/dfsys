@@ -4,13 +4,30 @@
 #include "extensions.h"
 #include <stdint.h>
 
-/* x86 gdt register */
+/* gdt access flags */
+#define GDTACCESS_ACCESSED      (1 << 0)
+#define GDTACCESS_RW            (1 << 1)
+#define GDTACCESS_DC            (1 << 2)
+#define GDTACCESS_EXECUTABLE    (1 << 3)
+#define GDTACCESS_DESCTYPE      (1 << 4)
+#define GDTACCESS_PRIVILIEGE    ((1 << 5) | (1 << 6))
+#define GDTACCESS_PRESENT       (1 << 7)
+
+/* gdt flags */
+#define GDTFLAG_GRANULARITY     (1 << 1)
+#define GDTFLAG_SIZE            (1 << 2)
+#if defined(ARCH_X64)
+#define GDTFLAG_L               (1 << 1)
+#define GDTFLAG_SZ              (1 << 0)
+#endif
+
+/* gdt register */
 typedef struct __gdtreg {
     uint16_t limit;
     uint32_t base;
 } __attribute__((packed)) gdtreg;
 
-/* x86 gdt descriptor */
+/* gdt descriptor */
 typedef struct __gdtdesc {
     uint16_t limit_0to15;
     uint16_t base_0to15;
@@ -21,13 +38,13 @@ typedef struct __gdtdesc {
     uint8_t base_24to31;
 } __attribute__((packed)) gdtdesc;
 
-/* x86 idt register */
+/* idt register */
 typedef struct __idtreg {
     uint16_t limit;
     uint32_t base;
 } __attribute__((packed)) idtreg;
 
-/* x86 idt descriptor */
+/* idt descriptor */
 typedef struct __idtdesc {
     uint16_t offset_0to15;
     uint16_t select;
@@ -35,13 +52,13 @@ typedef struct __idtdesc {
     uint16_t offset_16to31;
 } __attribute__((packed)) idtdesc;
 
-/* global x86 gdt data */
+/* global gdt data */
 #define GDT_SIZE 0xFF
 #define GDT_BASE 0x00000800
 extern gdtreg kgdtr;
 extern gdtdesc kgdt[GDT_SIZE];
 
-/* global x86 idt data */
+/* global idt data */
 #define IDT_SIZE 0xFF
 #define IDT_BASE 0x00000000
 extern idtreg kidtr;

@@ -5,6 +5,7 @@ gdtreg kgdtr;
 gdtdesc kgdt[GDT_SIZE];
 idtreg kidtr;
 idtdesc kidt[IDT_SIZE];
+tss default_tss;
 
 external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8_t flags) {
     gdtdesc result;
@@ -19,6 +20,13 @@ external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim, uint8_t access, uint8_t
 }
 
 external void kgdtinit(void) {
+    kmemset(&default_tss, 0x00, sizeof(tss));
+    default_tss.esp0 = 0x1FFF0;
+    default_tss.ss0 = 0x18;
+    default_tss.debug_flag = 0x00;
+    default_tss.iopb_offset = 0x00;
+    const uint32_t tssa = uint32_t(&default_tss);
+
     kgdt[0] = kgdtmkdesc(0x00, 0x000000, 0x00, 0x00);
     kgdt[1] = kgdtmkdesc(0x00, 0x0FFFFF, 0x9B, 0x0D);
     kgdt[2] = kgdtmkdesc(0x00, 0x0FFFFF, 0x93, 0x0D);
@@ -26,7 +34,7 @@ external void kgdtinit(void) {
     kgdt[4] = kgdtmkdesc(0x00, 0x0FFFFF, 0xFF, 0x0D);
     kgdt[5] = kgdtmkdesc(0x00, 0x0FFFFF, 0xF3, 0x0D);
     kgdt[6] = kgdtmkdesc(0x00, 0x000000, 0xF7, 0x0D);
-    kgdt[7] = kgdtmkdesc(0x00, 0x000000, 0x00, 0x00);
+    kgdt[7] = kgdtmkdesc(tssa, 0x000067, 0xE9, 0x00);
 
     kgdtr.limit = GDT_SIZE * 8;
     kgdtr.base = GDT_BASE;

@@ -24,17 +24,17 @@
 /* task state segment */
 #if defined(ARCH_X86)
 typedef struct __tss {
-    uint16_t reserved1;
     uint16_t link;
+    uint16_t reserved_link;
     uint32_t esp0;
-    uint16_t reserved2;
     uint16_t ss0;
+    uint16_t reserved_ss0;
     uint32_t esp1;
-    uint16_t reserved3;
     uint16_t ss1;
+    uint16_t reserved_ss1;
     uint32_t esp2;
-    uint16_t reserved4;
     uint16_t ss2;
+    uint16_t reserved_ss2;
     uint32_t cr3;
     uint32_t eip;
     uint32_t eflags;
@@ -46,34 +46,34 @@ typedef struct __tss {
     uint32_t ebp;
     uint32_t esi;
     uint32_t edi;
-    uint16_t reserved5;
     uint16_t es;
-    uint16_t reserved6;
+    uint16_t reserved_es;
     uint16_t cs;
-    uint16_t reserved7;
+    uint16_t reserved_cs;
     uint16_t ss;
-    uint16_t reserved8;
+    uint16_t reserved_ss;
     uint16_t ds;
-    uint16_t reserved9;
+    uint16_t reserved_ds;
     uint16_t fs;
-    uint16_t reserved10;
+    uint16_t reserved_fs;
     uint16_t gs;
-    uint16_t reserved11;
+    uint16_t reserved_gs;
     uint16_t ldtr;
+    uint16_t reserved_ldtr;
+    uint16_t debug_flag;
     uint16_t iopb_offset;
-    uint16_t reserved12;
 } __attribute__((packed)) tss;
 #else
 typedef struct __tss {
-    uint32_t reserved1;
+    uint32_t reserved_1;
     uint32_t rsp0_low;
     uint32_t rsp0_high;
     uint32_t rsp1_low;
     uint32_t rsp1_high;
     uint32_t rsp2_low;
     uint32_t rsp2_high;
-    uint32_t reserved2;
-    uint32_t reserved3;
+    uint32_t reserved_2;
+    uint32_t reserved_3;
     uint32_t ist1_low;
     uint32_t ist1_high;
     uint32_t ist2_low;
@@ -88,10 +88,10 @@ typedef struct __tss {
     uint32_t ist6_high;
     uint32_t ist7_low;
     uint32_t ist7_high;
-    uint32_t reserved4;
-    uint32_t reserved5;
+    uint32_t reserved_4;
+    uint32_t reserved_5;
+    uint16_t debug_flag;
     uint16_t iopb_offset;
-    uint16_t reserved6;
 } __attribute__((packed)) tss;
 #endif
 
@@ -126,17 +126,16 @@ typedef struct __idtdesc {
     uint16_t offset_16to31;
 } __attribute__((packed)) idtdesc;
 
-/* global gdt data */
+/* global data */
 #define GDT_SIZE 0xFF
 #define GDT_BASE 0x00000800
-extern gdtreg kgdtr;
-extern gdtdesc kgdt[GDT_SIZE];
-
-/* global idt data */
 #define IDT_SIZE 0xFF
 #define IDT_BASE 0x00000000
+extern gdtreg kgdtr;
+extern gdtdesc kgdt[GDT_SIZE];
 extern idtreg kidtr;
 extern idtdesc kidt[IDT_SIZE];
+extern tss default_tss;
 
 /* returns a gdt descriptor based on the given arguments */
 external gdtdesc kgdtmkdesc(uint32_t base, uint32_t lim,

@@ -1,5 +1,4 @@
 #include "kernel.h"
-#include "x86.h"
 
 external void kmain() {
     kterminit();

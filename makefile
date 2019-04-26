@@ -1,6 +1,7 @@
 BINARY=bin/dfsys.bin
 OBJECTS=obj/bootstrap.o         \
         obj/cpuinfo.o           \
+        obj/debug.o             \
         obj/kernel.o            \
         obj/memory.o            \
         obj/stackcheck.o        \

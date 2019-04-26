@@ -4,6 +4,7 @@
 /* this header file acts as a composite of kernel headers */
 
 #include "cpuinfo.h"
+#include "debug.h"
 #include "definitions.h"
 #include "memory.h"
 #include "strings.h"

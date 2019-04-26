@@ -1,5 +1,4 @@
 #include "terminal.h"
-#include <stdint.h>
 
 #if defined(ARCH_X86)
 uintptr_t __stack_chk_guard = 0xE2DEE396;

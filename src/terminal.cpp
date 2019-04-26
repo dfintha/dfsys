@@ -1,7 +1,6 @@
 #include "memory.h"
 #include "strings.h"
 #include "terminal.h"
-#include <stdarg.h>
 
 constexpr const size_t vga_width = 80;
 constexpr const size_t vga_height = 25;

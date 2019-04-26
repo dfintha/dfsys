@@ -1,7 +1,7 @@
 #if !defined(DFSYS_VERSION)
 #define DFSYS_VERSION
 
-#include <stdint.h>
+#include "definitions.h"
 
 /* structure containing version info for the kernel */
 typedef struct __versioninfo {
@@ -15,4 +15,3 @@ typedef struct __versioninfo {
 extern const versioninfo kversion; 
 
 #endif
-

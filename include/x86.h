@@ -1,8 +1,7 @@
 #if !defined(DFSYS_X86)
 #define DFSYS_X86
 
-#include "extensions.h"
-#include <stdint.h>
+#include "definitions.h"
 
 /* gdt access flags */
 #define GDTACCESS_ACCESSED      (1 << 0)
@@ -150,4 +149,3 @@ external idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type);
 external void kidtinit(void);
 
 #endif
-

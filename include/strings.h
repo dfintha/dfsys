@@ -1,9 +1,7 @@
 #if !defined(DFSYS_STRING)
 #define DFSYS_STRING
 
-#include "extensions.h"
-#include <stdarg.h>
-#include <stddef.h>
+#include "definitions.h"
 
 /* writes _number_ to zero-terminated string at _destination_ in base _radix_ */
 external void kstritoa(char *destination, unsigned long number, int radix);
@@ -34,4 +32,3 @@ external void kstrformatv(char *destination, const char *format, va_list args);
 external void kstrappend(char *destination, char c);
 
 #endif
-

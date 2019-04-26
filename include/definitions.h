@@ -1,5 +1,9 @@
-#if !defined(DFSYS_EXTENSIONS)
-#define DFSYS_EXTENSIONS
+#if !defined(DFSYS_DEFINITIONS)
+#define DFSYS_DEFINITIONS
+
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #if defined(__cplusplus)
 #define external extern "C"

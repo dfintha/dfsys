@@ -1,8 +1,7 @@
 #if !defined(DFSYS_CPUINFO)
 #define DFSYS_CPUINFO
 
-#include "extensions.h"
-#include <stdint.h>
+#include "definitions.h"
 
 /* cpu information */
 typedef struct __cpuinfo {
@@ -17,4 +16,3 @@ typedef struct __cpuinfo {
 external cpuinfo kcpuinfo(void);
 
 #endif
-

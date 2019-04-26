@@ -1,9 +1,7 @@
 #if !defined(DFSYS_TERMINAL)
 #define DFSYS_TERMINAL
 
-#include "extensions.h"
-#include <stddef.h>
-#include <stdint.h>
+#include "definitions.h"
 
 /* enumeration of the 16 standard vga colors */
 typedef enum __vgacolor {
@@ -44,4 +42,3 @@ external void ktermprints(const char *s);
 external void ktermprintf(const char *format, ...);
 
 #endif
-

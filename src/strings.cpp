@@ -1,5 +1,18 @@
 #include "strings.h"
 
+internal char ictolower(char c) {
+    constexpr const char letter_to_lower = 'a' - 'A';
+    if (c >= 'A' && c <= 'Z')
+        return (c + letter_to_lower);
+    return c;
+}
+
+internal void istolower(char *s) {
+    const size_t length = kstrlen(s);
+    for (size_t i = 0; i < length; ++i)
+        s[i] = ictolower(s[i]);
+}
+
 external void kstritoa(char *destination, unsigned long number, int radix) {
     size_t i = 0;
     do {
@@ -124,6 +137,21 @@ external void kstrformatv(char *destination, const char *format, va_list args) {
                 const unsigned value = va_arg(args, unsigned);
                 char buffer[64];
                 kstritoa(buffer, value, 10);
+                kstrcat(destination, buffer);
+                break;
+            }
+
+            case 'X':
+            case 'x': { // unsigned 32-bit
+                const uint32_t value = va_arg(args, uint32_t);
+                char buffer[64];
+                kstritoa(buffer, value, 16);
+                const size_t numlen = kstrlen(buffer);
+                if (current == 'x')
+                    istolower(buffer);
+                for (size_t i = numlen; i <= 8; ++i) {
+                    kstrappend(destination, '0');
+                }
                 kstrcat(destination, buffer);
                 break;
             }

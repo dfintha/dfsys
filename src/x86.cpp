@@ -19,6 +19,7 @@ external gdtdesc kgdtmkdesc(uint32_t base, uint32_t limit, uint8_t type) {
     return result;
 }
 
+#if defined(ARCH_X86)
 external void kgdtinit(void) {
     kmemset(&default_tss, 0x00, sizeof(tss));
     default_tss.esp0 = 0x1FFF0;
@@ -47,6 +48,11 @@ external void kgdtinit(void) {
                   ljmp $0x08, $next \n\
                   next:             \n");
 }
+#else
+external void kgdtinit(void) {
+    // TODO
+}
+#endif
 
 external idtdesc kidtmkdesc(uint16_t select, uint32_t offset, uint16_t type) {
     idtdesc result;
